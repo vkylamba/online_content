@@ -2,35 +2,174 @@
 
 <!DOCTYPE html>
 <html lang = "en">
+	<head>
+		<meta charset = "utf-8">
+		<meta http-equiv = "X-UA-Compatible" content = "IE = edge">
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1">
+
+		<title>Articles</title>
+
+		<!-- Bootstrap -->
+		<link href = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel = "stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+		<!--[if lt IE 9]>
+		<script src = "https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src = "https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
    
-   <head>
-      <meta charset = "utf-8">
-      <meta http-equiv = "X-UA-Compatible" content = "IE = edge">
-      <meta name = "viewport" content = "width = device-width, initial-scale = 1">
-      
-      <title>Articles</title>
-      
-      <!-- Bootstrap -->
-      <link href = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel = "stylesheet">
-      
-      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-      
-      <!--[if lt IE 9]>
-      <script src = "https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src = "https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-      <![endif]-->
-      
-   </head>
-   
-   <body>
-      <h1>Hello, world!</h1>
-      
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-      
-   </body>
+	<body>
+		<div class="container">
+			<div class="row clearfix">
+				<!--Sidebar-->
+				<div class="col-md-2 column">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row clearfix ">
+                                <img width="100%" src="{% static 'article/images/envelop.jpeg' %}" alt="...">
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-6 column">
+                                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-6 column">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col col-md-10">
+                                    <ul class="nav nav-pills nav-stacked">
+                                        <li role="presentation">
+                                            <a href="#" class="thumbnail">
+                                                <img width="50%" src="{% static 'article/images/envelop.jpeg' %}" alt="...">
+                                                <span>Nav1</span>
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="#" class="thumbnail">
+                                                <img width="50%" src="{% static 'article/images/envelop.jpeg' %}" alt="...">
+                                                <span>Nav2</span>
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="#" class="thumbnail">
+                                                <img  width="50%" src="{% static 'article/images/envelop.jpeg' %}" alt="...">
+                                                <span>Nav3</span>
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="#" class="thumbnail">
+                                                <img  width="50%" src="{% static 'article/images/envelop.jpeg' %}" alt="...">
+                                                <span>Nav4</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				
+				<!--Article display area-->
+				<div class="col-md-10 column">
+				    
+                    <!-- random article display area -->
+                    <div class="row clearfix">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    Article title
+                                </h3>
+                                </br>
+                                <span>Author name</span>
+                                <span>publication date</span>
+                            </div>
+                            <div class="panel-body">
+                                Article body
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Article list display area -->
+                    <div class="row clearfix">
+                        <div class="col-md-12 column">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="row clearfix">
+                                        <div class="col-md-2 column">
+                                            <span class="badge">1</span>
+                                        </div>
+                                        <div class="col-md-10 column">
+                                           <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h6 class="panel-title">Article title</h6>
+                                                </div>
+                                                <div class="panel-body">
+                                                    article content
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+					<!--"what to read next section"-->
+					<div class="row clearfix">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="panel-title">
+                                    What to read next
+                                    
+                                    <button type="button" class="btn btn-default pull-right">
+                                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default pull-right">
+                                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+							</div>
+							<div class="panel-body">
+								<ul class="nav nav-pills">
+                                    <li role="presentation">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{% static 'article/images/envelop.jpeg' %}" alt="...">
+                                            <span>Title1</span>
+                                        </a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{% static 'article/images/envelop.jpeg' %}" alt="...">
+                                            <span>Nav2</span>
+                                        </a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{% static 'article/images/envelop.jpeg' %}" alt="...">
+                                            <span>Title2</span>
+                                        </a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#" class="thumbnail">
+                                            <img src="{% static 'article/images/envelop.jpeg' %}" alt="...">
+                                            <span>Title4</span>
+                                        </a>
+                                    </li>
+                                </ul>
+							</div>
+						</div>
+					</div>
+				</div><!--Article display area>-->
+			</div>
+		</div>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	</body>
 </html>
