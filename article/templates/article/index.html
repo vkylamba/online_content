@@ -24,7 +24,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.js"></script>
 	</head>
    
-	<body ng-controller="articleCtrl">
+	<body ng-controller="articleCtrl" data-ng-init="init()">
 		<div class="container">
 			<div class="row clearfix">
 				<!--Sidebar-->
@@ -79,44 +79,95 @@
 				<!--Article display area-->
 				<div class="col-md-10 column">
 				    
-                    <!-- random article display area -->
-                    <div class="row clearfix">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">
-                                    Article title
-                                </h3>
-                                </br>
-                                <span>Author name</span>
-                                <span>publication date</span>
+                    <div ng-show="selected_article == ''">
+                        <!-- random article display area -->
+                        <div class="row clearfix">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        {% verbatim %}{{random_article.title}}{% endverbatim %}
+                                    </h3>
+                                    </br>
+                                    <span>{% verbatim %}{{"by " + random_article.author}}{% endverbatim %}</span>
+                                    <span>{% verbatim %}{{" on " + random_article.publication_date}}{% endverbatim %}</span>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row clearfix">
+                                        <div class="col-md-12 column">
+                                            <img width="100%" height="300px" src="{% verbatim %}{{random_article.hero_image}}{% endverbatim %}" alt="...">
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-md-12 column">
+                                            <p>
+                                                {% verbatim %}{{random_article.body_text}}{% endverbatim %}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                Article body
+                        </div>
+                        <!-- Article list display area -->
+                        <div class="row clearfix">
+                            <div class="col-md-12 column">
+                                <ul class="list-group">
+                                    <li class="list-group-item" ng-repeat="article in all_articles">
+                                        <a href="#" ng-click="load_article(article.id)">
+                                        <div class="row clearfix">
+                                            <div class="col-md-2 column">
+                                                <span class="badge">{% verbatim %}{{article.id}}{% endverbatim %}</span>
+                                            </div>
+                                            <div class="col-md-10 column">
+                                               <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h6 class="panel-title">{% verbatim %}{{article.title}}{% endverbatim %}</h6>
+                                                        <span>{% verbatim %}{{"by " + article.author}}{% endverbatim %}</span>
+                                                        <span>{% verbatim %}{{" on " + article.publication_date}}{% endverbatim %}</span>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <p>
+                                                            {% verbatim %}{{article.body_text}}{% endverbatim %}
+                                                        </p>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- Article list display area -->
-                    <div class="row clearfix">
-                        <div class="col-md-12 column">
-                            <ul class="list-group">
-                                <li class="list-group-item">
+                    <div ng-show="selected_article != ''">
+                        <div class="row clearfix">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        {% verbatim %}{{selected_article.title}}{% endverbatim %}
+                                    </h3>
+                                    </br>
+                                    <span>{% verbatim %}{{"by " + selected_article.author}}{% endverbatim %}</span>
+                                    <span>{% verbatim %}{{" on " + selected_article.publication_date}}{% endverbatim %}</span>
+                                </div>
+                                <div class="panel-body">
                                     <div class="row clearfix">
-                                        <div class="col-md-2 column">
-                                            <span class="badge">1</span>
-                                        </div>
-                                        <div class="col-md-10 column">
-                                           <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h6 class="panel-title">Article title</h6>
-                                                </div>
-                                                <div class="panel-body">
-                                                    article content
-                                                </div>
-                                            </div> 
+                                        <div class="col-md-12 column">
+                                            <img width="100%" height="300px" src="{% verbatim %}{{selected_article.hero_image}}{% endverbatim %}" alt="...">
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
+                                    <div class="row clearfix">
+                                        <div class="col-md-8 column">
+                                        
+                                            <p>
+                                                {% verbatim %}{{selected_article.body_text}}{% endverbatim %}
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4 column">
+                                            <img width="100%" height="100%" src="{% verbatim %}{{selected_article.additional_media}}{% endverbatim %}" alt="...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 					<!--"what to read next section"-->
@@ -126,40 +177,22 @@
 								<div class="panel-title">
                                     What to read next
                                     
-                                    <button type="button" class="btn btn-default pull-right">
+                                    <button type="button" class="btn btn-default pull-right" ng-click="get_random_articles_list()">
                                         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                                     </button>
-                                    <button type="button" class="btn btn-default pull-right">
+                                    <button type="button" class="btn btn-default pull-right" ng-click="get_random_articles_list()">
                                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                                     </button>
                                 </div>
 							</div>
 							<div class="panel-body">
 								<ul class="nav nav-pills">
-                                    <li role="presentation">
-                                        <a href="#" class="thumbnail">
-                                            <img src="{% static 'article/images/envelop.jpeg' %}" alt="...">
-                                            <span>Title1</span>
-                                        </a>
-                                    </li>
-                                    <li role="presentation">
-                                        <a href="#" class="thumbnail">
-                                            <img src="{% static 'article/images/envelop.jpeg' %}" alt="...">
-                                            <span>Nav2</span>
-                                        </a>
-                                    </li>
-                                    <li role="presentation">
-                                        <a href="#" class="thumbnail">
-                                            <img src="{% static 'article/images/envelop.jpeg' %}" alt="...">
-                                            <span>Title2</span>
-                                        </a>
-                                    </li>
-                                    <li role="presentation">
-                                        <a href="#" class="thumbnail">
-                                            <img src="{% static 'article/images/envelop.jpeg' %}" alt="...">
-                                            <span>Title4</span>
-                                        </a>
-                                    </li>
+                                 <li ng-repeat="article in random_articles">
+                                     <a href="#" class="thumbnail" ng-click="load_article(article.id)">
+                                         <img width="100px" height="100px" src="{% verbatim %}{{article.hero_image}}{% endverbatim %}" alt="...">
+                                         <span>{% verbatim %}{{article.title}}{% endverbatim %}</span>
+                                     </a>
+                                 </li>
                                 </ul>
 							</div>
 						</div>
