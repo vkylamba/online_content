@@ -16,6 +16,8 @@ class Author(models.Model):
 	birthday = models.DateField( blank=True, null=True, help_text = 'Birthday of the author');
 	signup_date = models.DateField( blank=True, null=True, help_text = 'Date when the author signed up');
 	
+	def __unicode__(self):
+		return str(self.nick_name) + ": " + str(self.full_name);
 
 #Model to represent Article Catagories
 class Catagory(models.Model):
@@ -23,6 +25,9 @@ class Catagory(models.Model):
 		Class to store Aricle catagory informations
 	"""
 	name = models.CharField(max_length = 30, help_text = 'Catagory name');
+	
+	def __unicode__(self):
+		return str(self.name);
 
 #model to represent the Article
 class Article(models.Model):
@@ -36,3 +41,6 @@ class Article(models.Model):
 	hero_image = models.ImageField(upload_to=get_image_path, blank=True, null=True, help_text = 'Hero image for the article');
 	additional_media = models.ImageField(upload_to=get_image_path, blank=True, null=True, help_text = 'Additional media for the article');
 	body_text = models.CharField(max_length = 5000, help_text = 'Body of the Article');
+	
+	def __unicode__(self):
+		return str(self.title) + ": " + str(self.author);
