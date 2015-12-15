@@ -9,5 +9,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'online_content.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^articles/', include('article.urls', namespace='article')),
     url(r'^', include('article.urls', namespace='article')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
