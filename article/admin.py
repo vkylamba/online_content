@@ -4,8 +4,16 @@ from django.contrib import admin
 from article.models import *
 
 #Registering Author model to be accessible to Admin
-admin.site.register(Author);
+class AuthorAdmin(admin.ModelAdmin):
+	list_display = ('nick_name', 'full_name', 'signup_date');
+admin.site.register(Author, AuthorAdmin);
+
+
 #Registering Catagory model to be accessible to Admin
 admin.site.register(Catagory);
+
+
 #Registering Article model to be accessible to Admin
-admin.site.register(Article);
+class ArticleAdmin(admin.ModelAdmin):
+	list_display = ('title', 'author', 'publication_date', 'catagory');
+admin.site.register(Article, ArticleAdmin);
