@@ -1,10 +1,11 @@
 from django.db import models
 import os
+import online_content.settings as settings
 
 
 #Function to return path to store media
-def get_image_path(instance, filename):
-    return os.path.join('media', str(instance.id), filename)
+def get_media_path(instance, filename):
+	return os.path.join('media', str(instance.id), filename)
 
 #model to represent Author table
 class Author(models.Model):
@@ -38,8 +39,8 @@ class Article(models.Model):
 	author = models.ForeignKey(Author, help_text = 'Author of the article');
 	publication_date = models.DateField(help_text = 'Date of publication');
 	catagory = models.ForeignKey(Catagory, help_text = 'Catagory of the article');
-	hero_image = models.ImageField(upload_to=get_image_path, blank=True, null=True, help_text = 'Hero image for the article');
-	additional_media = models.ImageField(upload_to=get_image_path, blank=True, null=True, help_text = 'Additional media for the article');
+	hero_image = models.ImageField(upload_to=get_media_path, blank=True, null=True, help_text = 'Hero image for the article');
+	additional_media = models.FileField(upload_to=get_media_path, blank=True, null=True, help_text = 'Additional media for the article');
 	body_text = models.CharField(max_length = 5000, help_text = 'Body of the Article');
 	
 	def __unicode__(self):
