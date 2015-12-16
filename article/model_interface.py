@@ -10,7 +10,7 @@ class ModelInterface:
 	def get_articles(self, article_id, truncate_body_text = True):
 		#the article_id can contain a number or alphabatic string, Lets see if it is 'all'
 		if str(article_id) == 'all':
-			articles = Article.objects.all();
+			articles = Article.objects.all().order_by('publication_date');
 		else:
 			if article_id.isdigit():
 				article_id = int(article_id);
@@ -23,7 +23,8 @@ class ModelInterface:
 					"title": article.title,
 					"body_text": bdy_text,
 					"author": article.author.full_name,
-					"publication_date": str(article.publication_date),
+					"author_id": article.author.id,
+					"publication_date": article.publication_date.strftime("%A, %B, %d, %Y"),
 					"hero_image": str(article.hero_image),
 					"additional_media": str(article.additional_media),
 				}];
@@ -40,7 +41,8 @@ class ModelInterface:
 					"title": article.title,
 					"body_text": bdy_text,
 					"author": article.author.full_name,
-					"publication_date": str(article.publication_date),
+					"author_id": article.author.id,
+					"publication_date": article.publication_date.strftime("%A, %B, %d, %Y"),
 					"hero_image": str(article.hero_image),
 					"additional_media": str(article.additional_media),
 				};

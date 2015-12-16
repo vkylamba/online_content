@@ -88,8 +88,9 @@
                                         {% verbatim %}{{random_article.title}}{% endverbatim %}
                                     </h3>
                                     </br>
-                                    <span>{% verbatim %}{{"by " + random_article.author}}{% endverbatim %}</span>
-                                    <span>{% verbatim %}{{" on " + random_article.publication_date}}{% endverbatim %}</span>
+                                    <span>{% verbatim %}{{random_article.publication_date}}{% endverbatim %}</span>
+                                    <a href="/author/{% verbatim %}{{ random_article.author_id}}{% endverbatim %}"><span>{% verbatim %}{{random_article.author}}{% endverbatim %}</span>
+                                    </a>
                                 </div>
                                 <div class="panel-body">
                                     <div class="row clearfix">
@@ -145,9 +146,13 @@
                                     <h3 class="panel-title">
                                         {% verbatim %}{{selected_article.title}}{% endverbatim %}
                                     </h3>
+                                    <button type="button" class="btn btn-default pull-right" ng-click="selected_article=''">
+                                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                    </button>
                                     </br>
-                                    <span>{% verbatim %}{{"by " + selected_article.author}}{% endverbatim %}</span>
-                                    <span>{% verbatim %}{{" on " + selected_article.publication_date}}{% endverbatim %}</span>
+                                    <span>{% verbatim %}{{selected_article.publication_date}}{% endverbatim %}</span>
+                                    <a href="#" ng-click="show_author(selected_article.author_id)"><span>{% verbatim %}{{selected_article.author}}{% endverbatim %}</span>
+                                    </a>
                                 </div>
                                 <div class="panel-body">
                                     <div class="row clearfix">
