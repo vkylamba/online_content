@@ -16,9 +16,11 @@ class Author(models.Model):
 	full_name = models.CharField(max_length = 100, help_text = 'Full name of the author');
 	birthday = models.DateField( blank=True, null=True, help_text = 'Birthday of the author');
 	signup_date = models.DateField( blank=True, null=True, help_text = 'Date when the author signed up');
+	#avatar = models.ImageField(upload_to=get_media_path, blank=True, null=True, help_text = 'Avatar of the author');
 	
 	def __unicode__(self):
 		return str(self.nick_name) + ": " + str(self.full_name);
+
 
 #Model to represent Article Catagories
 class Catagory(models.Model):

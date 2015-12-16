@@ -48,3 +48,42 @@ class ModelInterface:
 				};
 			article_container.append(art);
 		return article_container;
+		
+		
+	#Function to return number of articles published by author
+	def get_number_of_articles(self, author):
+		return len(Article.objects.filter(author=author));
+		
+	def get_authors(self, author_id):
+		#the author_id can contain a number or alphabatic string, Lets see if it is 'all'
+		if str(author_id) == 'all':
+			authors = Author.objects.all().order_by('signup_date');
+		else:
+			if author_id.isdigit():
+				author_id = int(author_id);
+				author = Author.objects.get(id=author_id);
+				return [{
+					"id": author.id,
+					"nick_name": author.nick_name,
+					"full_name": author.full_name,
+					"dob": author.birthday.strftime("%A, %B, %d, %Y"),
+					"signup_date": author.signup_date.strftime("%A, %B, %d, %Y"),
+					#"avatar": str(author.avatar), 
+					"number_of_articles": self.get_number_of_articles(author),
+				}];
+			else:
+				raise Http404;
+		
+		author_container = [];
+		for author in authors:
+			athr = {
+					"id": author.id,
+					"nick_name": author.nick_name,
+					"full_name": author.full_name,
+					"dob": author.birthday.strftime("%A, %B, %d, %Y"),
+					"signup_date": author.signup_date.strftime("%A, %B, %d, %Y"),
+					#"avatar": str(author.avatar), 
+					"number_of_articles": self.get_number_of_articles(author),
+				};
+			author_container.append(athr);
+		return author_container;

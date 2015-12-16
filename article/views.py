@@ -22,3 +22,11 @@ def load_article_details(request, article_id):
 	articles = mi.get_articles(article_id, False);
 	articles = json.dumps(articles);
 	return HttpResponse(articles);
+	
+
+def author_details(request, author_id):
+	
+	mi = model_interface.ModelInterface();
+	authors = mi.get_authors(author_id);
+	authors = json.dumps(authors);
+	return HttpResponse(authors);

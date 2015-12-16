@@ -22,6 +22,42 @@
         <!--Angularjs scripts-->
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.js"></script>
+        
+        <!-- style for the table
+        <style>
+            table {
+                width: 100%;
+            }
+
+            thead, tbody, tr, td, th { display: block; }
+
+            tr:after {
+                content: ' ';
+                display: block;
+                visibility: hidden;
+                clear: both;
+            }
+            tbody {
+                height: 500px;
+                overflow-y: auto;
+            }
+            tbody td, thead th {
+                width: 100%;
+                float: left;
+            }
+        </style>-->
+        <!--Container style -->
+        <style>
+            .tablecont{
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-right: auto;
+                margin-left: auto;
+                overflow:auto;
+                min-height:0px !important;
+                max-height: 300px;
+                }
+        </style>
 	</head>
    
 	<body ng-controller="articleCtrl" data-ng-init="init()">
@@ -79,6 +115,48 @@
 				<!--Article display area-->
 				<div class="col-md-10 column">
 				    
+                    <!--Author details display area -->
+                    <div ng-show="selected_author != ''">
+                    <div class="row clearfix">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    Author details
+                                </h3>
+                                <button type="button" class="btn btn-default pull-right" ng-click="selected_author=''">
+                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                </button>
+                                <br><br><br>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Nickname:</td>
+                                            <td>{% verbatim %}{{selected_author.nick_name}}{% endverbatim %}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fullname:</td>
+                                            <td>{% verbatim %}{{selected_author.full_name}}{% endverbatim %}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Birthday:</td>
+                                            <td>{% verbatim %}{{selected_author.birthday}}{% endverbatim %}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Signup date:</td>
+                                            <td>{% verbatim %}{{selected_author.signup_date}}{% endverbatim %}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Published articles:</td>
+                                            <td>{% verbatim %}{{selected_author.number_of_articles}}{% endverbatim %}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                     <div ng-show="selected_article == ''">
                         <!-- random article display area -->
                         <div class="row clearfix">
@@ -89,7 +167,7 @@
                                     </h3>
                                     </br>
                                     <span>{% verbatim %}{{random_article.publication_date}}{% endverbatim %}</span>
-                                    <a href="/author/{% verbatim %}{{ random_article.author_id}}{% endverbatim %}"><span>{% verbatim %}{{random_article.author}}{% endverbatim %}</span>
+                                    <a href="#" ng-click="load_author(random_article.author_id)"><span>{% verbatim %}{{random_article.author}}{% endverbatim %}</span>
                                     </a>
                                 </div>
                                 <div class="panel-body">
@@ -111,34 +189,40 @@
                         <!-- Article list display area -->
                         <div class="row clearfix">
                             <div class="col-md-12 column">
-                                <ul class="list-group">
-                                    <li class="list-group-item" ng-repeat="article in all_articles">
-                                        <a href="#" ng-click="load_article(article.id)">
-                                        <div class="row clearfix">
-                                            <div class="col-md-2 column">
-                                                <span class="badge">{% verbatim %}{{article.id}}{% endverbatim %}</span>
-                                            </div>
-                                            <div class="col-md-10 column">
-                                               <div class="panel panel-default">
-                                                    <div class="panel-heading">
-                                                        <h6 class="panel-title">{% verbatim %}{{article.title}}{% endverbatim %}</h6>
-                                                        <span>{% verbatim %}{{"by " + article.author}}{% endverbatim %}</span>
-                                                        <span>{% verbatim %}{{" on " + article.publication_date}}{% endverbatim %}</span>
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <p>
-                                                            {% verbatim %}{{article.body_text}}{% endverbatim %}
-                                                        </p>
-                                                    </div>
-                                                </div> 
-                                            </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3>List of published articles</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="tablecont">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr ng-repeat="article in all_articles">
+                                                        <td>
+                                                            <span class="badge">{% verbatim %}{{article.id}}{% endverbatim %}</span>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" ng-click="load_article(article.id)">
+                                                                <div>
+                                                                    <h4>{% verbatim %}{{article.title}}{% endverbatim %}</h4>
+                                                                    <span>{% verbatim %}{{"by " + article.author}}{% endverbatim %}</span>
+                                                                    <span>{% verbatim %}{{" on " + article.publication_date}}{% endverbatim %}</span>
+                                                                    <p>
+                                                                        {% verbatim %}{{article.body_text}}{% endverbatim %}
+                                                                    </p>
+                                                                </div>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        </a>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!--Detailed article display area -->
                     <div ng-show="selected_article != ''">
                         <div class="row clearfix">
                             <div class="panel panel-default">
@@ -151,7 +235,7 @@
                                     </button>
                                     </br>
                                     <span>{% verbatim %}{{selected_article.publication_date}}{% endverbatim %}</span>
-                                    <a href="#" ng-click="show_author(selected_article.author_id)"><span>{% verbatim %}{{selected_article.author}}{% endverbatim %}</span>
+                                    <a href="#" ng-click="load_author(selected_article.author_id)"><span>{% verbatim %}{{selected_article.author}}{% endverbatim %}</span>
                                     </a>
                                 </div>
                                 <div class="panel-body">
@@ -168,13 +252,22 @@
                                             </p>
                                         </div>
                                         <div class="col-md-4 column">
-                                            <img width="100%" height="100%" src="{% verbatim %}{{selected_article.additional_media}}{% endverbatim %}" alt="...">
+                                            <!--<img width="100%" height="100%" src="{% verbatim %}{{selected_article.additional_media}}{% endverbatim %}" alt="...">-->
+                                            <div class="media">
+                                                <div class="media-left media-middle">
+                                                    <a href="#">
+                                                        <img class="media-object" width="100%" height="100%" src="{% verbatim %}{{selected_article.additional_media}}{% endverbatim %}" alt="...">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 					<!--"what to read next section"-->
 					<div class="row clearfix">
 						<div class="panel panel-default">
